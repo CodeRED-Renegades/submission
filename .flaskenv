@@ -1,2 +1,2 @@
-FLASK_APP=src\api
+FLASK_APP=src/api
 FLASK_ENV=development
