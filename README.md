@@ -1,4 +1,4 @@
-# submission
+# Submission
 The setup is getting there. 
 Please make sure you have NodeJS and Python ready to go.
 
