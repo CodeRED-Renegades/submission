@@ -4,6 +4,7 @@ import Grid from '@mui/material/Grid';
 import { Navbar} from 'react-bootstrap';
 
 import { SafetyCard } from './Components/SafetyCard';
+import { BarChart } from './Components/Chart/BarChart';
 
 export const Dashboard = () => {
     const [isChart, setIsChart] = useState(false);
@@ -18,6 +19,9 @@ export const Dashboard = () => {
             </Navbar>
             <div className='body center'>
                 <Grid item md={10} sm={12}>
+                    <div className='chart-container'>
+                        <BarChart></BarChart>
+                    </div>
                     <div className='safety-container'>
                         <SafetyCard title={'First'} image={'First'} content={'First'}></SafetyCard>
                         <SafetyCard title={'Second'} image={'Second'} content={'Second'}></SafetyCard>
