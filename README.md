@@ -6,12 +6,23 @@ https://www.python.org/downloads/
 https://nodejs.org/en/
 
 Installation
+
+Get the following files from Adil and put them in the root directory:
+
+```
+.env
+.flaskenv
+```
+
+Run these commands in the following sequence.
+
 ```
 # Create virtual environment.
 python -m venv venv 
 
 # Activate virtual environment
-venv\Scripts\acitvate.bat # venv\bin\activate for macOS or linux
+venv\Scripts\acitvate.bat # Windows 
+venv\bin\activate # macOS or linux
 
 # Install dependencies
 python -m pip install -r requirements.txt
@@ -22,6 +33,12 @@ cd src/frontend
 # Install npm packages
 npm install
 
+# Build react frontend
+npm run build
+
 # CD back out to root dir.
 cd ../..
+
+# Run project
+flask run
 ```
