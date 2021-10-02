@@ -5,9 +5,9 @@ Please make sure you have NodeJS and Python ready to go.
 https://www.python.org/downloads/
 https://nodejs.org/en/
 
-Installation
+## Installation
 
-Step 1: Clone repository from github. 
+### Step 1: Clone repository from github. 
 
 ```
 # Navigate to desktop via command line or terminal.
@@ -17,14 +17,14 @@ cd path/to/desktop
 git clone https://github.com/CodeRED-Renegades/submission.git
 ```
 
-Step 2: Get the following files from Adil and put them in the root directory:
+### Step 2: Get the following files from Adil and put them in the root directory:
 
 ```
 .env
 .flaskenv
 ```
 
-Step 3: From the root directory, run these commands in the following sequence.
+### Step 3: From the root directory, run these commands in the following sequence.
 
 ```
 # Create virtual environment.
