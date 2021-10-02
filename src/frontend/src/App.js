@@ -1,7 +1,10 @@
 import logo from './logo.svg';
 import './App.css';
+import { submitIncident } from './apiWrapper';
 
-function App() {
+async function App() {
+  const message = await submitIncident({});
+  console.log(message);
   return (
     <div className="App">
       <header className="App-header">
@@ -17,6 +20,7 @@ function App() {
         >
           Learn React
         </a>
+        <p>{message.message}</p>
       </header>
     </div>
   );
