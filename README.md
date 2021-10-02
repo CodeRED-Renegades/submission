@@ -50,5 +50,5 @@ npm run build
 cd ../..
 
 # Run project
-flask run
+python -m flask run
 ```
