@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './Dashboard.css';
 import Grid from '@mui/material/Grid';
 import { Navbar} from 'react-bootstrap';
@@ -6,6 +6,7 @@ import { Navbar} from 'react-bootstrap';
 import { SafetyCard } from './Components/SafetyCard';
 
 export const Dashboard = () => {
+    const [isChart, setIsChart] = useState(false);
     return(
         <div className='dashboard'>
             <Navbar bg="dark" variant="dark" expand="lg" className='navbar full-width'>

@@ -7,7 +7,7 @@ export const SafetyCard = (props) => {
     const [isExpanded, setIsExpanded] = useState(false);
     return(
         <div className='safety-card'>
-            <div onClick={() => setIsExpanded(prev => !prev)} style={{borderBottom: isExpanded ? '3.5px solid rgb(211,211,211)' : 'none'}}className='title'>
+            <div onClick={() => setIsExpanded(prev => !prev)} className='title'>
                 <FontAwesomeIcon icon={isExpanded ? faMinus : faPlus} />
                 <div className='center full-width'>
                     <div>{props.title}</div>
