@@ -16,7 +16,7 @@ export const BarChart = (props) => {
             data={{
                 labels: [...props.horizontal],
                 datasets: [{
-                    label: 'Count',
+                    label: 'Incident Count',
                     data: [...props.vertical],
                     backgroundColor: [...backgroundColor],
                     borderColor: [...color],

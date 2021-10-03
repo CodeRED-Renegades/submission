@@ -42,18 +42,15 @@ export const Dashboard = () => {
     }
 
     useEffect(() => {
-<<<<<<< HEAD
-        console.log('Test');
-        async function GetDepartmentIncident() {
-            await GetDepartmentIncidentAsync().then(resolution => {
-                // console.log(resolution.data.values());
-                // console.log(resolution.data.keys())
-=======
+        // console.log('Test');
+        // async function GetDepartmentIncident() {
+        //     await GetDepartmentIncidentAsync().then(resolution => {
+        //         // console.log(resolution.data.values());
+        //         // console.log(resolution.data.keys())
         async function GetGeolocationIncident() {
             await GetGeolocationIncidentAsync(null, null).then(resolution => {
                 setXaxis(Object.keys(resolution.data));
                 setYaxis(Object.values(resolution.data));
->>>>>>> 2e059d7bf042d02281843ec62f198fb2d5cd486e
             });
         }
         GetGeolocationIncident();
@@ -102,25 +99,24 @@ export const Dashboard = () => {
             <div className='body'>
                 <div className='graph-container center full-width'>
                     <div style={{width: '57.5%'}}>
-                        <div className='full-width center'>Statistics Report</div>
+                        <div className='full-width center' style={{fontSize: '24px', marginBottom: '15px'}}><b>Statistics Report</b></div>
                         <BarChart horizontal={xAxis} vertical={yAxis}></BarChart>
                     </div>
                 </div>
                 <div className='action-container center' style={{width: '57.5%'}}>
                     <FormControl component='fieldset' className='full-width'>
-                        <FormLabel component='legend' className='center'>Options:</FormLabel>
+                        <FormLabel component='legend' className='center'>Categories:</FormLabel>
                         <RadioGroup row aria-label='Options' defaultValue='Geolocation' name='radio-button-group' className='center full-width'>
                             <FormControlLabel value="Geolocation" control={<Radio />} label='Geolocation' onChange={() => {setIsTime(false); handleRadio(2)}}></FormControlLabel>
                             <FormControlLabel value="Department" control={<Radio />} label='Department' onChange={() => {setIsTime(false); handleRadio(1)}}></FormControlLabel>
                             <FormControlLabel value="Time" control={<Radio />} label='Time' onChange={() => {setIsTime(true); handleRadio(3)}}></FormControlLabel>
-                            
                         </RadioGroup>
                     </FormControl>
                     <div><Link to='/form'><Button>Report an Incident</Button></Link></div>
                 </div>
                 <div className='safety-container center full-width'>
                     <div style={{width: '77.5%'}}>
-                        <div className='center full-width'>Hazard Information: </div>
+                        <div className='center full-width' style={{fontSize: '24px', marginBottom: '15px'}}><b>Hazard Information:</b></div>
                         <div className='safety-card-container full-width'>
                             <SafetyCard title={'Transportation'} prevention={prevention.Transport} content={description.Transport}></SafetyCard>
                             <SafetyCard title={'Oil Spill'} prevention={prevention.OilSpill} content={description.OilSpill}></SafetyCard>
