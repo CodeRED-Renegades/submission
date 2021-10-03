@@ -4,7 +4,7 @@ import './App.css';
 import { incidentReportsEndpoint, getAllEndpoint } from './apiWrapper';
 
 const payload = {
-  'Geolocation': "Houston", 
+  'Geolocation': "Sugar Land", 
   'Manager_Name': "Bernie Sanders", 
   'Department': "Drilling", 
   'Type_of_Hazard': "Oil Spill", 
