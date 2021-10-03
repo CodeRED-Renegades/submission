@@ -1,10 +1,20 @@
+import React, { useState, useEffect } from 'react';
 import logo from './logo.svg';
 import './App.css';
-import { submitIncident } from './apiWrapper';
+import { incidentReportsEndpoint } from './apiWrapper';
 
-async function App() {
-  const message = await submitIncident({});
-  console.log(message);
+function App() {
+  const [message, setMessage] = useState('No api. :-(');
+  fetch(incidentReportsEndpoint, {
+    method: 'POST',
+    body: payload,
+    headers: {
+        "content-type": "application/json",
+        "accept": "application/json"
+    }
+  })
+  .then(respObj => respObj.json())
+  .then(json => setMessage(json.message));
   return (
     <div className="App">
       <header className="App-header">
@@ -20,7 +30,7 @@ async function App() {
         >
           Learn React
         </a>
-        <p>{message.message}</p>
+        <p>{message}</p>
       </header>
     </div>
   );
