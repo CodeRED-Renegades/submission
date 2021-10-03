@@ -40,8 +40,23 @@ export const Dashboard = () => {
         PowerOutage: 'Sometimes, it is not possible to prevent a power outage from occurring but there are ways to reduce the effect they have on systems. For example, if the local grid runs out of power due to severe weather, the best way to mitigate the situation would be to have backup generators that would automatically run as soon as the voltage being supplied dips under a certain threshold and support the plant until it is no longer necessary or until the plant can be safely shut down.',
         BrokenPipe: 'Depending on the geographical and physical location of the pipes, they will be treated differently. In some areas of the world, pipes are not treated to face certain weather extremes and eventually break or crack. Making sure every pipe is inspected properly and thoroughly treated is critical to preventing this safety hazard.'
     }
+    const image = {
+        Transport: 'https://i0.wp.com/www.mainlandmachinery.com/wp-content/uploads/2015/06/Depositphotos_3625161_xs.jpg',
+        OilSpill: 'https://upload.wikimedia.org/wikipedia/commons/2/2e/Oil-spill.jpg',
+        ElectricalFire: 'https://www.exp-inc.com/wp-content/uploads/2021/05/elec-fifre-1024x702.png',
+        PowerOutage: 'https://thumbnails.texastribune.org/ZyY4kOKgDqj-_N1nix2b6s9LWD0=/850x570/smart/filters:quality(75)/https://static.texastribune.org/media/files/331f7b7743e7785f0500d40c04901b07/Natural%20Gas%20Flare%20JF%20TT%2002.jpg',
+        BrokenPipe: 'https://media.premiumtimesng.com/wp-content/files/2012/09/vandalised-pipeline.jpg'
+    }
 
     useEffect(() => {
+<<<<<<< HEAD
+=======
+        // console.log('Test');
+        // async function GetDepartmentIncident() {
+        //     await GetDepartmentIncidentAsync().then(resolution => {
+        //         // console.log(resolution.data.values());
+        //         // console.log(resolution.data.keys())
+>>>>>>> d86bc0cc84689a4c62669d4ab3c4d42f74392d33
         async function GetGeolocationIncident() {
             await GetGeolocationIncidentAsync(null, null).then(resolution => {
                 setXaxis(Object.keys(resolution.data));
@@ -94,40 +109,37 @@ export const Dashboard = () => {
             <div className='body'>
                 <div className='graph-container center full-width'>
                     <div style={{width: '57.5%'}}>
-                        <div className='full-width center'>Statistics Report</div>
+                        <div className='full-width center' style={{fontSize: '24px', marginBottom: '15px'}}><b>Incident Statistics</b></div>
                         <BarChart horizontal={xAxis} vertical={yAxis}></BarChart>
                     </div>
                 </div>
                 <div className='action-container center' style={{width: '57.5%'}}>
                     <FormControl component='fieldset' className='full-width'>
-                        <FormLabel component='legend' className='center'>Options:</FormLabel>
+                        <FormLabel component='legend' className='center'>Categories:</FormLabel>
                         <RadioGroup row aria-label='Options' defaultValue='Geolocation' name='radio-button-group' className='center full-width'>
                             <FormControlLabel value="Geolocation" control={<Radio />} label='Geolocation' onChange={() => {setIsTime(false); handleRadio(2)}}></FormControlLabel>
                             <FormControlLabel value="Department" control={<Radio />} label='Department' onChange={() => {setIsTime(false); handleRadio(1)}}></FormControlLabel>
                             <FormControlLabel value="Time" control={<Radio />} label='Time' onChange={() => {setIsTime(true); handleRadio(3)}}></FormControlLabel>
-                            
                         </RadioGroup>
                     </FormControl>
                     <div><Link to='/form'><Button>Report an Incident</Button></Link></div>
                 </div>
                 <div className='safety-container center full-width'>
                     <div style={{width: '77.5%'}}>
-                        <div className='center full-width'>Hazard Information: </div>
+                        <div className='center full-width' style={{fontSize: '24px', marginBottom: '15px'}}><b>Hazard Information:</b></div>
                         <div className='safety-card-container full-width'>
-                            <SafetyCard title={'Transportation'} prevention={prevention.Transport} content={description.Transport}></SafetyCard>
-                            <SafetyCard title={'Oil Spill'} prevention={prevention.OilSpill} content={description.OilSpill}></SafetyCard>
-                            <SafetyCard title={'Electrical Fires'} prevention={prevention.ElectricalFire} content={description.ElectricalFire}></SafetyCard>
-                            <SafetyCard title={'Power Outage'} prevention={prevention.PowerOutage} content={description.PowerOutage}></SafetyCard>
-                            <SafetyCard title={'Broken Pipes'} prevention={prevention.BrokenPipe} content={description.BrokenPipe}></SafetyCard>
+                            <SafetyCard title={'Transportation'} src={image.Transport} prevention={prevention.Transport} content={description.Transport}></SafetyCard>
+                            <SafetyCard title={'Oil Spill'} src={image.OilSpill} prevention={prevention.OilSpill} content={description.OilSpill}></SafetyCard>
+                            <SafetyCard title={'Electrical Fires'} src={image.ElectricalFire} prevention={prevention.ElectricalFire} content={description.ElectricalFire}></SafetyCard>
+                            <SafetyCard title={'Power Outage'} src={image.PowerOutage} prevention={prevention.PowerOutage} content={description.PowerOutage}></SafetyCard>
+                            <SafetyCard title={'Broken Pipes'} src={image.BrokenPipe} prevention={prevention.BrokenPipe} content={description.BrokenPipe}></SafetyCard>
                         </div>
                     </div>
                 </div>
             </div>
             <div className='footer full-width'>
                 <div className='information'>
-                    <div>First</div>
-                    <div>Second</div>
-                    <div>Third</div>
+                    <div>Safety Metrics 2021.0.0</div>
                 </div>
                 <div className='trademark'>
                     <div>Trademark</div>

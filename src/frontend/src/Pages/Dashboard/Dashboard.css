@@ -5,12 +5,13 @@
     box-sizing: border-box;
 }
 
-.content-description {
-    display: flex;
-    flex-flow: column wrap;
+.content-image {
+    width: 650px;
+    height: auto;
+    margin-right: 15px;
 }
 
-.content-prevention {
+.content-description {
     display: flex;
     flex-flow: column wrap;
 }
@@ -29,8 +30,6 @@
     width: 100%;
 }
 
-.dashboard {
-}
 .dashboard > * {
     margin-bottom: 15px;
 }
