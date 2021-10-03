@@ -16,8 +16,8 @@ def get_all_incidents(startDate, endDate):
     output = [] #list of dictionaries
     date = dict()
 
-    if endDate.endswith('>'):
-        endDate = endDate[:-1]
+    if endDate.startswith("null") and not endDate.endswith('null'):
+        endDate = "null"  
 
     if startDate == "null"  and endDate.startswith("null"):
 
@@ -152,3 +152,100 @@ def create_incident(incident):
    db.commit()
    cur.close()
    return { "message": "incident created" }
+
+
+def get_department_incidents(startDate, endDate):
+    db_path = os.path.join(source_path, "database", "sms.db")
+    rel_db_path = os.path.relpath(db_path, BASE_DIR)
+    db = sqlite3.connect(rel_db_path)
+    cur = db.cursor()
+
+    output = {
+        "Exploration": 0,
+        "Drilling": 0,
+        "Upstream": 0,
+        "Downstream": 0,
+        "Shipping": 0,
+        "Trading": 0,
+        "Refinement": 0,
+        "Crude": 0,
+        "Production": 0
+    }
+
+    if endDate.startswith("null") and not endDate.endswith('null'):
+        endDate = "null"
+
+    if startDate == "null"  and endDate.startswith("null"):
+        for row in cur.execute("SELECT department FROM TEST"):
+            output[row[0]] += 1
+          
+    elif endDate.startswith("null"):
+        commandStirng = f"SELECT department FROM TEST WHERE Time > '{startDate}'"
+        for row in cur.execute(commandStirng):
+            output[row[0]] += 1
+
+    elif startDate.startswith("null"):
+        commandStirng = f"SELECT department FROM TEST WHERE Time < '{endDate}'"
+        for row in cur.execute(commandStirng):
+            output[row[0]] += 1
+
+    else:
+        for row in cur.execute(f"SELECT department FROM TEST WHERE Time BETWEEN '{startDate}' AND '{endDate}' "):
+            output[row[0]] += 1
+
+    db.close()
+    return output
+
+
+def get_location_incidents(startDate, endDate):
+    db_path = os.path.join(source_path, "database", "sms.db")
+    rel_db_path = os.path.relpath(db_path, BASE_DIR)
+    db = sqlite3.connect(rel_db_path)
+    cur = db.cursor()
+
+    output = {
+        "Houston": 0,
+        "Dallas": 0,
+        "Austin": 0,
+        "Fort Worth": 0,
+        "Waco": 0,
+        "Katy": 0,
+        "Sugar Land": 0,
+        "Cypress": 0
+    }
+
+    if endDate.startswith("null") and not endDate.endswith('null'):
+        endDate = "null"
+
+    if startDate == "null"  and endDate.startswith("null"):
+        for row in cur.execute("SELECT geolocation FROM TEST"):
+            if row[0] == "Sugarland":
+                output["Sugar Land"]  += 1
+                continue
+            output[row[0]] += 1
+          
+    elif endDate.startswith("null"):
+        commandStirng = f"SELECT geolocation FROM TEST WHERE Time > '{startDate}'"
+        for row in cur.execute(commandStirng):
+            if row[0] == "Sugarland":
+                output["Sugar Land"]  += 1
+                continue
+            output[row[0]] += 1
+
+    elif startDate.startswith("null"):
+        commandStirng = f"SELECT geolocation FROM TEST WHERE Time < '{endDate}'"
+        for row in cur.execute(commandStirng):
+            if row[0] == "Sugarland":
+                output["Sugar Land"]  += 1
+                continue
+            output[row[0]] += 1
+
+    else:
+        for row in cur.execute(f"SELECT geolocation FROM TEST WHERE Time BETWEEN '{startDate}' AND '{endDate}' "):
+            if row[0] == "Sugarland":
+                output["Sugar Land"]  += 1
+                continue
+            output[row[0]] += 1
+
+    db.close()
+    return output
