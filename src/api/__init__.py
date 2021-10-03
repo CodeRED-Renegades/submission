@@ -29,3 +29,13 @@ def incidents():
 def api_get_all_incidents(startDate, endDate):
     if request.method == 'GET':
         return jsonify(get_all_incidents(startDate, endDate)), s.HTTP_200_OK
+
+@app.route("/api/incident/department/<startDate>/<endDate>", methods=['GET'])
+def api_get_department_incidents(startDate, endDate):
+    if request.method == 'GET':
+        return jsonify(get_department_incidents(startDate, endDate)), s.HTTP_200_OK
+
+@app.route("/api/incident/location/<startDate>/<endDate>", methods=['GET'])
+def api_get_location_incidents(startDate, endDate):
+    if request.method == 'GET':
+        return jsonify(get_location_incidents(startDate, endDate)), s.HTTP_200_OK
