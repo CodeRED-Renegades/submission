@@ -3,15 +3,27 @@ import logo from './logo.svg';
 import './App.css';
 import { incidentReportsEndpoint, getAllEndpoint } from './apiWrapper';
 
+const payload = {
+  'Geolocation': "Houston", 
+  'Manager_Name': "Bernie Sanders", 
+  'Department': "Drilling", 
+  'Type_of_Hazard': "Oil Spill", 
+  'Description': "Everyone was on fire.", 
+  'Danger_Level': 10, 
+  'Injury_Count': 22, 
+  'Death_Count': 6, 
+  'NearMiss': 98
+}
 
 function App() {
   const [message, setMessage] = useState('No api. :-(');
 
-  //getAllEndPoint fetch
-  fetch(getAllEndpoint("foo", "bar"), {
-    method: 'GET',
+  fetch(incidentReportsEndpoint, {
+    method: 'POST',
+    body: JSON.stringify(payload),
     headers: {
-        "accept": "application/json"
+        "accept": "application/json",
+        "content-type": "application/json"
     }
   })
   .then(respObj => respObj.json())
