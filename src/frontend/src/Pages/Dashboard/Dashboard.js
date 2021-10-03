@@ -49,14 +49,11 @@ export const Dashboard = () => {
     }
 
     useEffect(() => {
-<<<<<<< HEAD
-=======
         // console.log('Test');
         // async function GetDepartmentIncident() {
         //     await GetDepartmentIncidentAsync().then(resolution => {
         //         // console.log(resolution.data.values());
         //         // console.log(resolution.data.keys())
->>>>>>> d86bc0cc84689a4c62669d4ab3c4d42f74392d33
         async function GetGeolocationIncident() {
             await GetGeolocationIncidentAsync(null, null).then(resolution => {
                 setXaxis(Object.keys(resolution.data));
