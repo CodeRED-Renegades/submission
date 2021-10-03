@@ -4,7 +4,7 @@ import sqlite3
 from flask import Flask, send_from_directory, request, jsonify
 from flask_api import status as s
 from flask_cors import CORS
-from main.api import *
+from api.main import *
 
 source_path = os.path.dirname(os.path.dirname(__file__))
 BASE_DIR = os.path.dirname(source_path)
