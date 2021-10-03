@@ -11,11 +11,22 @@ import DateFnsUtils from '@date-io/date-fns';
 import { PostIncident } from '../../API/PostInformation';
 
 export const ReportForm = () => {
-    const [selectedDate, setSelectedDate] = useState(null);
-    const [geolocation, setGeolocation] = useState(null);
-    const [department, setDepartment] = useState(null);
-    const [hazard, setHazard] = useState(null);
-    console.log(selectedDate, geolocation, department, hazard)
+    const [selectedDate, setSelectedDate] = useState("");
+    const [managerName, setManagerName] = useState("");
+    const [employeeName, setEmployeeName] = useState("");
+    const [geolocation, setGeolocation] = useState("");
+    const [department, setDepartment] = useState("");
+    const [hazard, setHazard] = useState("");
+    const [description, setDescription] = useState("");
+    const [injuryCount, setInjuryCount] = useState("");
+    const [fatalityCount, setFatalityCount] = useState("");
+    const [nearMiss, setNearMiss] = useState(true);
+    const [dangerLevel, setDangerLevel] = useState(0);
+
+    const sliderChangeHandler = (val) => {
+        var val = document.getElementById("dangerLevel").value //gets the oninput value
+        setDangerLevel(val);
+    }
 
     const ValidateHandler = (values) => {
         const errors = {};
@@ -51,9 +62,7 @@ export const ReportForm = () => {
         // }
         return errors;
     }
-    const SubmitHanlder = (values) => {
-        console.log('Submit: ', values);
-    }
+
     const initialValues = {
         time: null,
         geolocation: null,
@@ -67,6 +76,25 @@ export const ReportForm = () => {
         fatalityCount: null,
         nearMiss: null
     }
+
+    const handleSubmission = (values) => {
+        const stateValues = {
+            'Time': `${selectedDate.split("/").join("-")} 00:00:00`,
+            'Geolocation': `${selectedDate.split("/").join("-")} 00:00:00`, 
+            'Manager_Name': managerName, 
+            'Department': department, 
+            'Type_of_Hazard': hazard, 
+            'Description': description, 
+            'Danger_Level': dangerLevel, 
+            'Injury_Count': injuryCount, 
+            'Death_Count': fatalityCount, 
+            'NearMiss': nearMiss
+        }
+        console.log(stateValues);
+        console.log(values);
+    }
+
+
     return(
         <div className='center full-width'>
             <div className='form-container' style={{width: '62.5%'}}>
@@ -74,7 +102,7 @@ export const ReportForm = () => {
                 enableReinitialize
                 initialValues={initialValues}
                 validateOnChange={false} validateOnBlur={false}
-                validate={ValidateHandler} onSubmit={SubmitHanlder}
+                validate={ValidateHandler} onSubmit={handleSubmission}
                 >
                 {(props) => (
                     <Form className='form full-width'>
@@ -102,11 +130,11 @@ export const ReportForm = () => {
                             {props.errors.geolocation ? <div className='error-text'>{props.errors.geolocation}</div> : null}
                         </div>
                         <div>
-                            <TextField id='employees' label={'Employee Names: '} variant='filled'></TextField>
+                            <TextField id='employees' label={'Employee Names: '} variant='filled' value={employeeName} onChange={val => setEmployeeName(val.target.value)}></TextField>
                             {props.errors.employees ? <div className='error-text'>{props.errors.employees}</div> : null}
                         </div>
                         <div>
-                            <TextField id='manager' label={'Manager Name: '} variant='filled'></TextField>
+                            <TextField id='manager' label={'Manager Name: '} variant='filled' value={managerName} onChange={val => setManagerName(val.target.value)}></TextField>
                             {props.errors.manager ? <div className='error-text'>{props.errors.manager}</div> : null}
                         </div>
                         <div>
@@ -142,29 +170,29 @@ export const ReportForm = () => {
                             {props.errors.typeOfHazard ? <div className='error-text'>{props.errors.typeOfHazard}</div> : null}
                         </div>
                         <div>
-                            <TextField id='description' label={'Description: '} variant='filled'></TextField>
+                            <TextField id='description' label={'Description: '} variant='filled' value={description} onChange={val => setDescription(val.target.value)}></TextField>
                             {props.errors.description ? <div className='error-text'>{props.errors.description}</div> : null}
                         </div>
                         <div>
                             <div>Hazard Level:</div>
-                            <Slider id='dangerLevel' label={'Danger Level: '} min={0} max={10} step={1} valueLabelDisplay='auto' defaultValue={0}></Slider>
+                            <Slider id='dangerLevel' label={'Danger Level: '} min={0} max={10} step={1} valueLabelDisplay='auto' defaultValue={0} onChange={sliderChangeHandler}></Slider>
                         </div>
                         <div>
-                            <TextField id='injuryCount' label={'Injury Count: '} variant='filled'></TextField>
+                            <TextField id='injuryCount' label={'Injury Count: '} variant='filled' value={injuryCount} onChange={val => setInjuryCount(val.target.value)}></TextField>
                             {props.errors.injuryCount ? <div className='error-text'>{props.errors.injuryCount}</div> : null}
                         </div>
                         <div>
-                            <TextField id='fatalityCount' label={'Fatality Count: '} variant='filled'></TextField>
+                            <TextField id='fatalityCount' label={'Fatality Count: '} variant='filled' value={fatalityCount} onChange={val => setFatalityCount(val.target.value)}></TextField>
                             {props.errors.fatalityCount ? <div className='error-text'>{props.errors.fatalityCount}</div> : null}
                         </div>
                         <div>
                             <FormGroup>
-                                <FormControlLabel control={<Checkbox />} label={'Near Miss:'}/>
+                                <FormControlLabel control={<Checkbox />} label={'Near Miss:'} onChange={val => setNearMiss(val.target.checked)} />
                             </FormGroup>
                         </div>
                         <div className='full-width button-container'>
                             <div style={{marginRight: '15px', width: 'auto'}}><Link to={'/'}><Button className='btn btn-secondary'>Cancel</Button></Link></div>
-                            <div style={{width: 'auto'}}><Button type='submit' className='btn btn-primary'>Submit</Button ></div>
+                            <div style={{width: 'auto'}}><Button type='submit' className='btn btn-primary' onClick={handleSubmission}>Submit</Button ></div>
                         </div>
                     </Form>
                 )}

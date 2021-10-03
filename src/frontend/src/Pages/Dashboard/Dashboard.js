@@ -29,8 +29,9 @@ export const Dashboard = () => {
     useEffect(() => {
         console.log('Test');
         async function GetDepartmentIncident() {
-            await GetDepartmentIncidentAsync(null, null).then(resolution => {
-                console.log(resolution.data);
+            await GetDepartmentIncidentAsync().then(resolution => {
+                // console.log(resolution.data.values());
+                // console.log(resolution.data.keys())
             });
         }
         GetDepartmentIncident();

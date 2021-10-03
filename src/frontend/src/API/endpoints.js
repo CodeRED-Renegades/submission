@@ -6,12 +6,14 @@ const port = process.env.PORT || 5000;
 // Ignore these Shaheer!
 export const baseUrl = `http://${host}:${port}`;
 export const apiEndpoint = `${baseUrl}/api`;
-export const allincidentsendpointdepartment = `${incidentReportsEndpoint}/department`;
-export const allincidentsendpointlocation = `${incidentReportsEndpoint}/location`;
-export const allIncidentsEndpoint = `${incidentReportsEndpoint}/all`;
 
 // POST -- submit new incident here.
 export const incidentReportsEndpoint = `${apiEndpoint}/incident`;
+
+// Ignore these Shaheer!
+export const allincidentsendpointdepartment = `${incidentReportsEndpoint}/department`;
+export const allincidentsendpointlocation = `${incidentReportsEndpoint}/location`;
+export const allIncidentsEndpoint = `${incidentReportsEndpoint}/all`;
 
 // GET -- get incident by month/year
 export const getAllEndpoint = (startDate=null, endDate=null) => `${allIncidentsEndpoint}/${startDate}/${endDate}>`;
