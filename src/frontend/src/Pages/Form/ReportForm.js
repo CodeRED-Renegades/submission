@@ -3,47 +3,50 @@ import './Form.css'
 
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { Link } from 'react-router-dom';
-import { Select, Checkbox, TextField, Slider, FormControl } from '@material-ui/core';
+import { Select, Checkbox, TextField, Slider, FormControl, MenuItem, InputLabel, FormGroup, FormControlLabel } from '@material-ui/core';
 import { KeyboardDatePicker, MuiPickersUtilsProvider } from "@material-ui/pickers";
 import { Button } from 'react-bootstrap';
 import DateFnsUtils from '@date-io/date-fns';
 
 export const ReportForm = () => {
     const [selectedDate, setSelectedDate] = useState(null);
-    const [dangerLevel, setDangerLevel] = useState(0);
+    const [geolocation, setGeolocation] = useState(null);
+    const [department, setDepartment] = useState(null);
+    const [hazard, setHazard] = useState(null);
+    console.log(selectedDate, geolocation, department, hazard)
 
     const ValidateHandler = (values) => {
         const errors = {};
-        if(!values.time) {
+        if(!selectedDate) {
             errors.time = 'Must select a time.';
         }
-        if(!values.geolocation) {
+        if(!geolocation) {
             errors.geolocation = 'Must select a geolocation.';
         }
-        if(!values.employees){
-            errors.employees = 'Must specify the employees affected.';
-        }   
-        if(!values.manager){
-            errors.manager = 'Must specify the manager.';
-        }
-        if(!values.department){
+        // if(!values.employees){
+        //     errors.employees = 'Must specify the employees affected.';
+        // }   
+        // if(!values.manager){
+        //     errors.manager = 'Must specify the manager.';
+        // }
+        if(!department){
             errors.department = 'Must specify the department.';
         }
-        if(!values.typeOfHazard){
+        if(!hazard){
             errors.typeOfHazard = 'Must specify the type of hazard.';
         }
-        if(!values.description){
-            errors.description = 'Must input a description.';
-        }
-        if(!values.injuryCount){
-            errors.injuryCount = 'Must specify the injury count.';
-        }
-        if(!values.fatalityCount){
-            errors.fatalityCount = 'Must specify the fatality count.';
-        }
-        if(!values.nearMiss){
-            errors.nearMiss = 'Must specify if a near miss.';
-        }
+        // if(!values.description){
+        //     errors.description = 'Must input a description.';
+        // }
+        // if(!values.injuryCount){
+        //     errors.injuryCount = 'Must specify the injury count.';
+        // }
+        // if(!values.fatalityCount){
+        //     errors.fatalityCount = 'Must specify the fatality count.';
+        // }
+        // if(!values.nearMiss){
+        //     errors.nearMiss = 'Must specify if a near miss.';
+        // }
         return errors;
     }
     const SubmitHanlder = (values) => {
@@ -76,12 +79,24 @@ export const ReportForm = () => {
                         <div>
                             <MuiPickersUtilsProvider utils={DateFnsUtils}>
                                 <KeyboardDatePicker id='time' clearable label={'Time: '} value={selectedDate} 
-                                onChange={(date) => setSelectedDate(date)} format='MM/dd/yyyy' inputVariant='standard'  style={{margin: '15px'}}></KeyboardDatePicker>
+                                onChange={(option) => setSelectedDate(option)} format='MM/dd/yyyy' inputVariant='standard'  style={{margin: '15px'}}></KeyboardDatePicker>
                             </MuiPickersUtilsProvider>
                             {props.errors.time ? <div className='error-text'>{props.errors.time}</div> : null}
                         </div>
                         <div>
-                            <FormControl variant='outlined'><Select id='geolocation'></Select></FormControl>
+                            <FormControl variant='outlined'>
+                                <InputLabel labelId='geolocation'>Geolocation:</InputLabel>
+                                <Select id='geolocation' onChange={(option) => setGeolocation(option.target.value)}>
+                                    <MenuItem value={'Houston'}>Houston</MenuItem>
+                                    <MenuItem value={'Dallas'}>Dallas</MenuItem>
+                                    <MenuItem value={'Austin'}>Austin</MenuItem>
+                                    <MenuItem value={'Fort Worth'}>Fort Worth</MenuItem>
+                                    <MenuItem value={'Waco'}>Waco</MenuItem>
+                                    <MenuItem value={'Katy'}>Katy</MenuItem>
+                                    <MenuItem value={'Sugarland'}>Sugarland</MenuItem>
+                                    <MenuItem value={'Cypress'}>Cypress</MenuItem>
+                                </Select>
+                            </FormControl>
                             {props.errors.geolocation ? <div className='error-text'>{props.errors.geolocation}</div> : null}
                         </div>
                         <div>
@@ -93,11 +108,35 @@ export const ReportForm = () => {
                             {props.errors.manager ? <div className='error-text'>{props.errors.manager}</div> : null}
                         </div>
                         <div>
-                            <FormControl variant='outlined'><Select id='department' ></Select></FormControl>
+                            <FormControl variant='outlined'>
+                                <InputLabel labelId='department'>Department:</InputLabel>
+                                <Select id='department' onChange={(option) => setDepartment(option.target.value)}>
+                                    <MenuItem value={'Exploration'}>Exploration</MenuItem>
+                                    <MenuItem value={'Drilling'}>Drilling</MenuItem>
+                                    <MenuItem value={'Upstream'}>Upstream</MenuItem>
+                                    <MenuItem value={'Downstream'}>Downstream</MenuItem>
+                                    <MenuItem value={'Shipping'}>Shipping</MenuItem>
+                                    <MenuItem value={'Trading'}>Trading</MenuItem>
+                                    <MenuItem value={'Refinement'}>Refinement</MenuItem>
+                                    <MenuItem value={'Crude'}>Crude</MenuItem>
+                                    <MenuItem value={'Production'}>Production</MenuItem>
+                                </Select>
+                            </FormControl>
                             {props.errors.department ? <div className='error-text'>{props.errors.department}</div> : null}
                         </div>
                         <div>
-                            <FormControl variant='outlined'><Select id='typeOfHazard' ></Select></FormControl>
+                            <FormControl variant='outlined'>
+                                <InputLabel>Type of Hazard:</InputLabel>
+                                <Select id='typeOfHazard' onChange={(option) => setHazard(option.target.value)}>
+                                    <MenuItem value={'Oil Spill'}>Oil Spill</MenuItem>
+                                    <MenuItem value={'Power Outage'}>Power Outage</MenuItem>
+                                    <MenuItem value={'Drilling Issue'}>Drilling Issue</MenuItem>
+                                    <MenuItem value={'Broken Pipe'}>Broken Pipe</MenuItem>
+                                    <MenuItem value={'Falling from Elevated Area'}>Falling from Elevated Area</MenuItem>
+                                    <MenuItem value={'Electrical Fire'}>Electrical Fire</MenuItem>
+                                    <MenuItem value={'Trip'}>Trip</MenuItem>
+                                </Select>
+                            </FormControl>
                             {props.errors.typeOfHazard ? <div className='error-text'>{props.errors.typeOfHazard}</div> : null}
                         </div>
                         <div>
@@ -105,6 +144,7 @@ export const ReportForm = () => {
                             {props.errors.description ? <div className='error-text'>{props.errors.description}</div> : null}
                         </div>
                         <div>
+                            <div>Hazard Level:</div>
                             <Slider id='dangerLevel' label={'Danger Level: '} min={0} max={10} step={1} valueLabelDisplay='auto' defaultValue={0}></Slider>
                         </div>
                         <div>
@@ -116,7 +156,9 @@ export const ReportForm = () => {
                             {props.errors.fatalityCount ? <div className='error-text'>{props.errors.fatalityCount}</div> : null}
                         </div>
                         <div>
-                            <Checkbox id='nearMiss'></Checkbox>
+                            <FormGroup>
+                                <FormControlLabel control={<Checkbox />} label={'Near Miss:'}/>
+                            </FormGroup>
                         </div>
                         <div className='full-width button-container'>
                             <div style={{marginRight: '15px', width: 'auto'}}><Link to={'/'}><Button className='btn btn-secondary'>Cancel</Button></Link></div>

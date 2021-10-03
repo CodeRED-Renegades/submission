@@ -12,7 +12,8 @@ import DateFnsUtils from '@date-io/date-fns';
 export const Dashboard = () => {
     const [startDate, setStartDate] = useState(new Date());
     const [endDate, setEndDate] = useState(new Date());
-    const [isOpen, setIsOpen] = useState(false);
+    const [radioOption, setRadioOption] = useState(1);
+    console.log(radioOption);
 
     return(
         <div className='dashboard'>
@@ -27,9 +28,9 @@ export const Dashboard = () => {
                     <FormControl component='fieldset' className='full-width'>
                         <FormLabel component='legend' className='center'>Options:</FormLabel>
                         <RadioGroup row aria-label='Options' defaultValue='Time' name='radio-button-group' className='center full-width'>
-                            <FormControlLabel value="Time" control={<Radio />} label='Time'></FormControlLabel>
-                            <FormControlLabel value="Geolocation" control={<Radio />} label='Geolocation'></FormControlLabel>
-                            <FormControlLabel value="Department" control={<Radio />} label='Department'></FormControlLabel>
+                            <FormControlLabel value="Time" control={<Radio />} label='Time' onChange={() => setRadioOption(1)}></FormControlLabel>
+                            <FormControlLabel value="Geolocation" control={<Radio />} label='Geolocation' onChange={() => setRadioOption(2)}></FormControlLabel>
+                            <FormControlLabel value="Department" control={<Radio />} label='Department' onChange={() => setRadioOption(3)}></FormControlLabel>
                         </RadioGroup>
                     </FormControl>
                     <div>
@@ -46,6 +47,7 @@ export const Dashboard = () => {
                 </div>
                 <div className='safety-container center full-width'>
                     <div style={{width: '77.5%'}}>
+                        <div className='center full-width'>Hazard Information: </div>
                         <div className='safety-card-container full-width'>
                             <SafetyCard title={'First'} image={'First'} content={'First'}></SafetyCard>
                             <SafetyCard title={'Second'} image={'Second'} content={'Second'}></SafetyCard>
