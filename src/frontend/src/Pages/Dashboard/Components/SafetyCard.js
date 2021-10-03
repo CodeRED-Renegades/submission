@@ -14,8 +14,8 @@ export const SafetyCard = (props) => {
                 </div>
             </div>
             <div style={{display: isExpanded ? 'flex' : 'none'}} className='content'>
-                <div><img src={props.image} alt={props.title} /></div>
-                <div>{props.content}</div>
+                <div className='content-description' style={{marginTop: '15px', marginBottom: '15px'}}><b>Description: </b>{props.content}</div>
+                <div className='content-prevention'><b>Prevention: </b>{props.prevention}</div>
             </div>
         </div>
     );
