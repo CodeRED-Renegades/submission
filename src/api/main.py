@@ -5,4 +5,4 @@ def get_all_incidents(startDate, endDate):
    else:
       #query by date
       pass
-   return {"message":"hello from database"};
+   return {"message":"hello from database"}
