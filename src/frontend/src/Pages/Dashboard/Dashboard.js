@@ -16,7 +16,8 @@ export const Dashboard = () => {
     const [endDate, setEndDate] = useState(new Date());
     const [radioOption, setRadioOption] = useState(1);
 
-    const [graphInformation, setGraphInformation] = useState(null);
+    const [xAxis, setXaxis] = useState([]);
+    const [yAxis, setYaxis] = useState([]);
 
     const description = {
         Transport: 'Workers and equipment are required to be transported to and from well sites. Wells are often located in remote areas, and require traveling long distances to get to the sites. Highway vehicle crashes are the leading cause of oil and gas extraction worker fatalities. Roughly 4 of every 10 workers killed on the job in this industry are killed as a result of a highway vehicle incident (Census of Fatal Occupational Injuries).',
@@ -30,7 +31,8 @@ export const Dashboard = () => {
         console.log('Test');
         async function GetDepartmentIncident() {
             await GetDepartmentIncidentAsync(null, null).then(resolution => {
-                console.log(resolution.data);
+                setXaxis(Object.keys(resolution.data));
+                setYaxis(Object.values(resolution.data));
             });
         }
         GetDepartmentIncident();
@@ -42,7 +44,7 @@ export const Dashboard = () => {
                 <div className='graph-container center full-width'>
                     <div style={{width: '57.5%'}}>
                         <div className='full-width center'>Statistics Report</div>
-                        <BarChart></BarChart>
+                        <BarChart horizontal={xAxis} vertical={yAxis}></BarChart>
                     </div>
                 </div>
                 <div className='action-container center' style={{width: '57.5%'}}>
