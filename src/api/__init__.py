@@ -12,7 +12,6 @@ react_path = os.path.join(source_path, "frontend", "build")
 db_path = os.path.join(source_path, "database", "sms.db")
 
 app = Flask(__name__, static_url_path='', static_folder=react_path)
-db = sqlite3.connect(os.path.relpath(db_path, BASE_DIR))
 
 CORS(app)
 
