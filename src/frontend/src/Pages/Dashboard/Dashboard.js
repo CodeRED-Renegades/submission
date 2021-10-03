@@ -99,7 +99,7 @@ export const Dashboard = () => {
             <div className='body'>
                 <div className='graph-container center full-width'>
                     <div style={{width: '57.5%'}}>
-                        <div className='full-width center' style={{fontSize: '24px', marginBottom: '15px'}}><b>Statistics Report</b></div>
+                        <div className='full-width center' style={{fontSize: '24px', marginBottom: '15px'}}><b>Incident Statistics</b></div>
                         <BarChart horizontal={xAxis} vertical={yAxis}></BarChart>
                     </div>
                 </div>
@@ -129,9 +129,7 @@ export const Dashboard = () => {
             </div>
             <div className='footer full-width'>
                 <div className='information'>
-                    <div>First</div>
-                    <div>Second</div>
-                    <div>Third</div>
+                    <div>Safety Metrics 2021.0.0</div>
                 </div>
                 <div className='trademark'>
                     <div>Trademark</div>
