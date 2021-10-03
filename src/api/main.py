@@ -3,10 +3,10 @@ import sqlite3
 
 source_path = os.path.dirname(os.path.dirname(__file__))
 BASE_DIR = os.path.dirname(source_path)
+db_path = os.path.join(source_path, "database", "sms.db")
+rel_db_path = os.path.relpath(db_path, BASE_DIR)
+db = sqlite3.connect(os.path.relpath(db_path, BASE_DIR))
 
-#database from the path
-
-def get_all_incidents(startDate, endDate):
     db_path = os.path.join(source_path, "database", "sms.db")
     db = sqlite3.connect(os.path.relpath(db_path, BASE_DIR))
     cur = db.cursor()
@@ -14,8 +14,8 @@ def get_all_incidents(startDate, endDate):
     date = dict()
 
     if startDate == "null"  and endDate.startswith("null"):
+    if startDate is None:
       #query all
-      #select statement, convert each observation into dictionaries by month
       
         print("this is running \n")
         for row in cur.execute("SELECT Time FROM TEST"):
@@ -136,3 +136,37 @@ def ExctractDate(Time):
 
     return newTime[0], newMonth
 
+      pass
+   else:
+      #query by date
+      #select statement, convert each observation into dictionaries by month in a range
+      pass
+   return {"message":"hello from database"}
+
+def create_incident(incident):
+   query = """insert into TEST (
+      Geolocation, 
+      Manager_Name, 
+      Department, 
+      Type_of_Hazard, 
+      Description, 
+      Danger_Level, 
+      Injury_Count, 
+      Death_Count, 
+      NearMiss) values (
+         '{Geolocation}', 
+         '{Manager_Name}', 
+         '{Department}', 
+         '{Type_of_Hazard}', 
+         '{Description}', 
+         {Danger_Level}, 
+         {Injury_Count}, 
+         {Death_Count}, 
+         {NearMiss}
+      );""".format(**incident)
+   db = sqlite3.connect(rel_db_path)
+   cur = db.cursor()
+   cur.execute(query)
+   db.commit()
+   cur.close()
+   return { "message": "incident created" }   return {"message":"hello from database"}
