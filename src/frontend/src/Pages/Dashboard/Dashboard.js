@@ -14,7 +14,6 @@ import { GetTimeIncidentAsync, GetGeolocationIncidentAsync, GetDepartmentInciden
 export const Dashboard = () => {
     const [startDate, setStartDate] = useState(new Date());
     const [endDate, setEndDate] = useState(new Date());
-    const [radioOption, setRadioOption] = useState(1);
 
     const [xAxis, setXaxis] = useState([]);
     const [yAxis, setYaxis] = useState([]);
@@ -28,15 +27,45 @@ export const Dashboard = () => {
     }
 
     useEffect(() => {
-        console.log('Test');
-        async function GetDepartmentIncident() {
-            await GetDepartmentIncidentAsync(null, null).then(resolution => {
+        async function GetGeolocationIncident() {
+            await GetGeolocationIncidentAsync(null, null).then(resolution => {
                 setXaxis(Object.keys(resolution.data));
                 setYaxis(Object.values(resolution.data));
             });
         }
-        GetDepartmentIncident();
+        GetGeolocationIncident();
     }, []);
+
+    const handleRadio = (input) => {
+        if(input == 3) {
+            async function GetTimeIncident() {
+                await GetTimeIncidentAsync(null, null).then(resolution => {
+                    console.log(resolution.data);
+                    setXaxis(Object.keys(resolution.data));
+                    setYaxis(Object.values(resolution.data));
+                });
+            }
+            GetTimeIncident();
+        }
+        else if (input == 2) {
+            async function GetGeolocationIncident() {
+                await GetGeolocationIncidentAsync(null, null).then(resolution => {
+                    setXaxis(Object.keys(resolution.data));
+                    setYaxis(Object.values(resolution.data));
+                });
+            }
+            GetGeolocationIncident();
+        }
+        else {
+            async function GetDepartmentIncident() {
+                await GetDepartmentIncidentAsync(null, null).then(resolution => {
+                    setXaxis(Object.keys(resolution.data));
+                    setYaxis(Object.values(resolution.data));
+                });
+            }
+            GetDepartmentIncident();
+        }
+    }
 
     return(
         <div className='dashboard'>
@@ -50,10 +79,11 @@ export const Dashboard = () => {
                 <div className='action-container center' style={{width: '57.5%'}}>
                     <FormControl component='fieldset' className='full-width'>
                         <FormLabel component='legend' className='center'>Options:</FormLabel>
-                        <RadioGroup row aria-label='Options' defaultValue='Time' name='radio-button-group' className='center full-width'>
-                            <FormControlLabel value="Time" control={<Radio />} label='Time' onChange={() => setRadioOption(1)}></FormControlLabel>
-                            <FormControlLabel value="Geolocation" control={<Radio />} label='Geolocation' onChange={() => setRadioOption(2)}></FormControlLabel>
-                            <FormControlLabel value="Department" control={<Radio />} label='Department' onChange={() => setRadioOption(3)}></FormControlLabel>
+                        <RadioGroup row aria-label='Options' defaultValue='Geolocation' name='radio-button-group' className='center full-width'>
+                            <FormControlLabel value="Geolocation" control={<Radio />} label='Geolocation' onChange={() => handleRadio(2)}></FormControlLabel>
+                            <FormControlLabel value="Department" control={<Radio />} label='Department' onChange={() => handleRadio(1)}></FormControlLabel>
+                            <FormControlLabel value="Time" control={<Radio />} label='Time' onChange={() => handleRadio(3)}></FormControlLabel>
+                            
                         </RadioGroup>
                     </FormControl>
                     <div>

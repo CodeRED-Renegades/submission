@@ -10,17 +10,27 @@ export const allincidentsendpointlocation = `${incidentReportsEndpoint}/location
 export const allIncidentsEndpoint = `${incidentReportsEndpoint}/all`;
 
 export const GetTimeIncidentAsync = async (startDate = null, endDate = null) => {
-    let request = await axios.get(`${allIncidentsEndpoint}`);
+    let request = await axios.get(`${allIncidentsEndpoint}/${startDate}/${endDate}`, {
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+        }
+    });
     return request;
 }
 
 export const GetGeolocationIncidentAsync = async (startDate = null, endDate = null) => {
-    let request = await axios.get(`${allincidentsendpointdepartment}`);
+    let request = await axios.get(`${allincidentsendpointlocation}/${startDate}/${endDate}`, {
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+        }
+    });
     return request;
 }
 
 export const GetDepartmentIncidentAsync = async (startDate = null, endDate = null) => {
-    let request = await axios.get(`${allincidentsendpointlocation}/${startDate}/${endDate}`, {
+    let request = await axios.get(`${allincidentsendpointdepartment}/${startDate}/${endDate}`, {
         headers: {
             'Content-Type': 'application/json',
             'Accept': 'application/json'
