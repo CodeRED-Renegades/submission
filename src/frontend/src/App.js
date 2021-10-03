@@ -8,14 +8,14 @@ function App() {
   const [message, setMessage] = useState('No api. :-(');
 
   //getAllEndPoint fetch
-  fetch(getAllEndpoint("foo", "bar"), {
+    fetch(getAllEndpoint("2020-01-03 00:00:01", "2020-12-04 00:00:01" ), {
     method: 'GET',
     headers: {
         "accept": "application/json"
     }
   })
   .then(respObj => respObj.json())
-  .then(json => setMessage(json.message));
+  .then(json => console.log(json)); //Change this back to setMessage(json.setMessage)
 
   return (
     <div className="App">
