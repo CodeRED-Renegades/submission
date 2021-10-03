@@ -27,7 +27,13 @@ export const Dashboard = () => {
     }
 
     useEffect(() => {
-
+        console.log('Test');
+        async function GetDepartmentIncident() {
+            await GetDepartmentIncidentAsync(null, null).then(resolution => {
+                console.log(resolution.data);
+            });
+        }
+        GetDepartmentIncident();
     }, []);
 
     return(
