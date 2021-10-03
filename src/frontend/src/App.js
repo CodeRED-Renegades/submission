@@ -1,51 +1,19 @@
-import React, { useState, useEffect } from 'react';
-import logo from './logo.svg';
-import './App.css';
-import { incidentReportsEndpoint, getAllEndpoint, getallendpointdepartment } from './apiWrapper';
+import React from 'react';
 
-const payload = {
-  'Geolocation': "Houston", 
-  'Manager_Name': "Bernie Sanders", 
-  'Department': "Drilling", 
-  'Type_of_Hazard': "Oil Spill", 
-  'Description': "Everyone was on fire.", 
-  'Danger_Level': 10, 
-  'Injury_Count': 22, 
-  'Death_Count': 6, 
-  'NearMiss': 98
-}
+import { Navbar } from 'react-bootstrap';
+import { SafetyRoutes } from './Routes/SafetyRoutes';
 
 function App() {
-    const [message, setMessage] = useState('No api. :-(');
-
-
-  //getAllEndPoint fetch
-    fetch(getallendpointdepartment(null, null), {
-    method: 'GET',
-        headers: {
-        "accept": "application/json"
-    }
-  })
-  .then(respObj => respObj.json())
-  .then(json => console.log(json)); //Change this back to setMessage(json.setMessage)
-
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-        <p>{message}</p>
-      </header>
+    return (
+    <div>
+        <Navbar bg="dark" variant="dark" expand="lg" className='navbar full-width'>
+            <Navbar.Brand>Logo</Navbar.Brand>
+            <div className='title'>
+                <Navbar.Brand>Safety Metrics</Navbar.Brand>
+            </div>
+            <Navbar.Brand>Social</Navbar.Brand>
+        </Navbar>
+        <SafetyRoutes></SafetyRoutes>
     </div>
   );
 }
