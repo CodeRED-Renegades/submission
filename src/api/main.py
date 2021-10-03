@@ -17,4 +17,4 @@ def get_all_incidents(startDate, endDate):
       #query by date
       #select statement, convert each observation into dictionaries by month in a range
       pass
-   return {"message":"hello from database"};
+   return {"message":"hello from database"}

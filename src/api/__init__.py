@@ -25,6 +25,8 @@ def incidents():
     if request.method == 'POST':
         return {"message": "Hello from API!"}, s.HTTP_200_OK
 
+
 @app.route("/api/incident/all/<startDate>/<endDate>", methods=['GET'])
 def api_get_all_incidents(startDate, endDate):
-    return jsonify(get_all_incidents(startDate, endDate)), 200
+    if request.method == 'GET':
+        return jsonify(get_all_incidents(startDate, endDate)), 200
