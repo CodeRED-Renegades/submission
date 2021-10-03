@@ -7,16 +7,15 @@ import { incidentReportsEndpoint, getAllEndpoint } from './apiWrapper';
 function App() {
   const [message, setMessage] = useState('No api. :-(');
 
-    //getAllEndPoint fetch
-    fetch(getAllEndpoint("foo", "bar"), {
+  //getAllEndPoint fetch
+  fetch(getAllEndpoint("foo", "bar"), {
     method: 'GET',
     headers: {
-        "content-type": "application/json",
         "accept": "application/json"
     }
   })
   .then(respObj => respObj.json())
-     .then(json => setMessage(json.message));
+  .then(json => setMessage(json.message));
 
   return (
     <div className="App">

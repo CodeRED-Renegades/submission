@@ -12,7 +12,6 @@ react_path = os.path.join(source_path, "frontend", "build")
 db_path = os.path.join(source_path, "database", "sms.db")
 
 app = Flask(__name__, static_url_path='', static_folder=react_path)
-db = sqlite3.connect(os.path.relpath(db_path, BASE_DIR))
 
 CORS(app)
 
@@ -26,6 +25,8 @@ def incidents():
     if request.method == 'POST':
         return {"message": "Hello from API!"}, s.HTTP_200_OK
 
+
 @app.route("/api/incident/all/<startDate>/<endDate>", methods=['GET'])
 def api_get_all_incidents(startDate, endDate):
-    return jsonify(get_all_incidents(startDate, endDate)), 200
+    if request.method == 'GET':
+        return jsonify(get_all_incidents(startDate, endDate)), 200
