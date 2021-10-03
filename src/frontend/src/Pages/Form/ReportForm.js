@@ -2,13 +2,23 @@ import React, { useState } from 'react';
 import './Form.css'
 
 import { Formik, Form, Field, ErrorMessage } from 'formik';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { Select, Checkbox, TextField, Slider, FormControl, MenuItem, InputLabel, FormGroup, FormControlLabel } from '@material-ui/core';
 import { KeyboardDatePicker, MuiPickersUtilsProvider } from "@material-ui/pickers";
 import { Button } from 'react-bootstrap';
 import DateFnsUtils from '@date-io/date-fns';
+import moment from 'moment';
 
-import { PostIncident } from '../../API/PostInformation';
+import { incidentReportsEndpoint } from '../../API/endpoints';
+
+const parseDate = (date) => {
+    console.log("--date--");
+    console.log(date);
+    const stringDate = moment(date).format('YYYY-MM-DD');
+    const dbDate = `${stringDate} 00:00:00`;
+    console.log("dbDate:" + dbDate);
+    return dbDate;
+}
 
 export const ReportForm = () => {
     const [selectedDate, setSelectedDate] = useState("");
@@ -22,10 +32,11 @@ export const ReportForm = () => {
     const [fatalityCount, setFatalityCount] = useState("");
     const [nearMiss, setNearMiss] = useState(true);
     const [dangerLevel, setDangerLevel] = useState(0);
+    const pageHistory = useHistory();
 
     const sliderChangeHandler = (val) => {
-        var val = document.getElementById("dangerLevel").value //gets the oninput value
-        setDangerLevel(val);
+        const value = parseInt(val.target.innerText);
+        setDangerLevel(value);
     }
 
     const ValidateHandler = (values) => {
@@ -64,34 +75,47 @@ export const ReportForm = () => {
     }
 
     const initialValues = {
-        time: null,
-        geolocation: null,
-        employees: null,
-        manager: null,
-        department: null,
-        typeOfHazard: null,
-        description: null,
+        time: Date.now(),
+        geolocation: "Houston",
+        employees: "",
+        manager: "",
+        department: "Exploration",
+        typeOfHazard: "Oil Spill",
+        description: "",
         dangerLevel: 0,
-        injuryCount: null,
-        fatalityCount: null,
-        nearMiss: null
+        injuryCount: "0",
+        fatalityCount: "0",
+        nearMiss: false
     }
 
-    const handleSubmission = (values) => {
+    const handleSubmission = (e) => {
         const stateValues = {
-            'Time': `${selectedDate.split("/").join("-")} 00:00:00`,
-            'Geolocation': `${selectedDate.split("/").join("-")} 00:00:00`, 
+            'Time': selectedDate,
+            'Geolocation': geolocation, 
             'Manager_Name': managerName, 
             'Department': department, 
             'Type_of_Hazard': hazard, 
             'Description': description, 
             'Danger_Level': dangerLevel, 
-            'Injury_Count': injuryCount, 
-            'Death_Count': fatalityCount, 
+            'Injury_Count': parseInt(injuryCount), 
+            'Death_Count': parseInt(fatalityCount), 
             'NearMiss': nearMiss
         }
         console.log(stateValues);
-        console.log(values);
+        const payload = JSON.stringify(stateValues);
+        console.log(payload);
+        fetch(incidentReportsEndpoint, {
+            method: 'POST',
+            body: payload,
+            headers: {
+                "content-type": "application/json",
+                "accept": "application/json"
+            }
+        })
+        .then(res => res.json())
+        .then(body => console.log(body))
+        .catch(err => console.err(err));
+        pageHistory.push('/');
     }
 
 
@@ -109,7 +133,7 @@ export const ReportForm = () => {
                         <div>
                             <MuiPickersUtilsProvider utils={DateFnsUtils}>
                                 <KeyboardDatePicker id='time' clearable label={'Time: '} value={selectedDate} 
-                                onChange={(option) => setSelectedDate(option)} format='MM/dd/yyyy' inputVariant='standard'  style={{margin: '15px'}}></KeyboardDatePicker>
+                                onChange={(option) => setSelectedDate(parseDate(option))} format='MM/dd/yyyy' inputVariant='standard'  style={{margin: '15px'}}></KeyboardDatePicker>
                             </MuiPickersUtilsProvider>
                             {props.errors.time ? <div className='error-text'>{props.errors.time}</div> : null}
                         </div>
@@ -192,7 +216,7 @@ export const ReportForm = () => {
                         </div>
                         <div className='full-width button-container'>
                             <div style={{marginRight: '15px', width: 'auto'}}><Link to={'/'}><Button className='btn btn-secondary'>Cancel</Button></Link></div>
-                            <div style={{width: 'auto'}}><Button type='submit' className='btn btn-primary' onClick={handleSubmission}>Submit</Button ></div>
+                            <div style={{width: 'auto'}}><Button type='submit' className='btn btn-primary'>Submit</Button ></div>
                         </div>
                     </Form>
                 )}

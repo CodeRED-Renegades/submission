@@ -42,18 +42,10 @@ export const Dashboard = () => {
     }
 
     useEffect(() => {
-<<<<<<< HEAD
-        console.log('Test');
-        async function GetDepartmentIncident() {
-            await GetDepartmentIncidentAsync().then(resolution => {
-                // console.log(resolution.data.values());
-                // console.log(resolution.data.keys())
-=======
         async function GetGeolocationIncident() {
             await GetGeolocationIncidentAsync(null, null).then(resolution => {
                 setXaxis(Object.keys(resolution.data));
                 setYaxis(Object.values(resolution.data));
->>>>>>> 2e059d7bf042d02281843ec62f198fb2d5cd486e
             });
         }
         GetGeolocationIncident();

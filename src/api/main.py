@@ -1,5 +1,6 @@
 import os
 import sqlite3
+from pprint import pprint
 
 source_path = os.path.dirname(os.path.dirname(__file__))
 BASE_DIR = os.path.dirname(source_path)
@@ -126,7 +127,8 @@ def ExctractDate(Time):
 
 
 def create_incident(incident):
-   query = """insert into TEST (
+    pprint(incident)
+    query = """insert into TEST (
       Geolocation, 
       Manager_Name, 
       Department, 
@@ -146,12 +148,12 @@ def create_incident(incident):
          {Death_Count}, 
          {NearMiss}
       );""".format(**incident)
-   db = sqlite3.connect(rel_db_path)
-   cur = db.cursor()
-   cur.execute(query)
-   db.commit()
-   cur.close()
-   return { "message": "incident created" }
+    db = sqlite3.connect(rel_db_path)
+    cur = db.cursor()
+    cur.execute(query)
+    db.commit()
+    cur.close()
+    return { "message": "incident created" }
 
 
 def get_department_incidents(startDate, endDate):
