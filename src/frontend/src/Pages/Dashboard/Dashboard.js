@@ -5,8 +5,15 @@ import { Link } from 'react-router-dom';
 
 import { SafetyCard } from './Components/SafetyCard';
 import { BarChart } from './Components/Chart/BarChart';
+import { FormControl, FormLabel,  FormControlLabel, RadioGroup, Radio, Modal } from '@material-ui/core';
+import { KeyboardDatePicker, MuiPickersUtilsProvider } from "@material-ui/pickers";
+import DateFnsUtils from '@date-io/date-fns';
 
 export const Dashboard = () => {
+    const [startDate, setStartDate] = useState(new Date());
+    const [endDate, setEndDate] = useState(new Date());
+    const [isOpen, setIsOpen] = useState(false);
+
     return(
         <div className='dashboard'>
             <div className='body'>
@@ -17,12 +24,28 @@ export const Dashboard = () => {
                     </div>
                 </div>
                 <div className='action-container center' style={{width: '57.5%'}}>
-                    <div className='axis-labels'>Axis</div>
+                    <FormControl component='fieldset' className='full-width'>
+                        <FormLabel component='legend' className='center'>Options:</FormLabel>
+                        <RadioGroup row aria-label='Options' defaultValue='Time' name='radio-button-group' className='center full-width'>
+                            <FormControlLabel value="Time" control={<Radio />} label='Time'></FormControlLabel>
+                            <FormControlLabel value="Geolocation" control={<Radio />} label='Geolocation'></FormControlLabel>
+                            <FormControlLabel value="Department" control={<Radio />} label='Department'></FormControlLabel>
+                        </RadioGroup>
+                    </FormControl>
+                    <div>
+                        <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                            <KeyboardDatePicker id='startTime' clearable label={'Start Time: '} value={startDate} 
+                            onChange={(date) => setStartDate(date)} format='MM/dd/yyyy' inputVariant='standard'></KeyboardDatePicker>
+                        </MuiPickersUtilsProvider>
+                        <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                            <KeyboardDatePicker id='endTime' clearable label={'End Time: '} value={endDate} 
+                            onChange={(date) => setEndDate(date)} format='MM/dd/yyyy' inputVariant='standard'></KeyboardDatePicker>
+                        </MuiPickersUtilsProvider>
+                    </div>
                     <div><Link to='/form'><Button>Report an Incident</Button></Link></div>
                 </div>
                 <div className='safety-container center full-width'>
                     <div style={{width: '77.5%'}}>
-                        <div className='full-width center'>Hazard Information</div>
                         <div className='safety-card-container full-width'>
                             <SafetyCard title={'First'} image={'First'} content={'First'}></SafetyCard>
                             <SafetyCard title={'Second'} image={'Second'} content={'Second'}></SafetyCard>

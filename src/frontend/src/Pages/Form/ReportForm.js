@@ -3,7 +3,7 @@ import './Form.css'
 
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { Link } from 'react-router-dom';
-import { Select, Checkbox, TextField, Slider, FormControl } from '@material-ui/core'
+import { Select, Checkbox, TextField, Slider, FormControl } from '@material-ui/core';
 import { KeyboardDatePicker, MuiPickersUtilsProvider } from "@material-ui/pickers";
 import { Button } from 'react-bootstrap';
 import DateFnsUtils from '@date-io/date-fns';
