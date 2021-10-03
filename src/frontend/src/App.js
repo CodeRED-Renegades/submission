@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import logo from './logo.svg';
 import './App.css';
-import { incidentReportsEndpoint, getAllEndpoint } from './apiWrapper';
+import { incidentReportsEndpoint, getAllEndpoint, getallendpointdepartment } from './apiWrapper';
 
 const payload = {
-  'Geolocation': "Sugar Land", 
+  'Geolocation': "Houston", 
   'Manager_Name': "Bernie Sanders", 
   'Department': "Drilling", 
   'Type_of_Hazard': "Oil Spill", 
@@ -16,18 +16,18 @@ const payload = {
 }
 
 function App() {
-  const [message, setMessage] = useState('No api. :-(');
+    const [message, setMessage] = useState('No api. :-(');
 
-  fetch(incidentReportsEndpoint, {
-    method: 'POST',
-    body: JSON.stringify(payload),
-    headers: {
-        "accept": "application/json",
-        "content-type": "application/json"
+
+  //getAllEndPoint fetch
+    fetch(getallendpointdepartment(null, null), {
+    method: 'GET',
+        headers: {
+        "accept": "application/json"
     }
   })
   .then(respObj => respObj.json())
-  .then(json => setMessage(json.message));
+  .then(json => console.log(json)); //Change this back to setMessage(json.setMessage)
 
   return (
     <div className="App">
