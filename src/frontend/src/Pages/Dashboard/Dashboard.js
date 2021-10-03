@@ -108,16 +108,6 @@ export const Dashboard = () => {
                             
                         </RadioGroup>
                     </FormControl>
-                    <div style={{display: isTime ? 'block' : 'none'}}>
-                        <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                            <KeyboardDatePicker id='startTime' clearable label={'Start Time: '} value={startDate} 
-                            onChange={(date) => setStartDate(date)} format='MM/dd/yyyy' inputVariant='standard'></KeyboardDatePicker>
-                        </MuiPickersUtilsProvider>
-                        <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                            <KeyboardDatePicker id='endTime' clearable label={'End Time: '} value={endDate} 
-                            onChange={(date) => setEndDate(date)} format='MM/dd/yyyy' inputVariant='standard'></KeyboardDatePicker>
-                        </MuiPickersUtilsProvider>
-                    </div>
                     <div><Link to='/form'><Button>Report an Incident</Button></Link></div>
                 </div>
                 <div className='safety-container center full-width'>
