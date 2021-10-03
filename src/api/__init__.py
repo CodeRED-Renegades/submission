@@ -7,9 +7,7 @@ from flask_cors import CORS
 from api.main import *
 
 source_path = os.path.dirname(os.path.dirname(__file__))
-BASE_DIR = os.path.dirname(source_path)
 react_path = os.path.join(source_path, "frontend", "build")
-db_path = os.path.join(source_path, "database", "sms.db")
 
 app = Flask(__name__, static_url_path='', static_folder=react_path)
 
@@ -23,10 +21,11 @@ def serve(path):
 @app.route("/api/incident", methods=['POST'])
 def incidents():
     if request.method == 'POST':
-        return {"message": "Hello from API!"}, s.HTTP_200_OK
+        body = request.json
+        return jsonify(create_incident(body)), s.HTTP_200_OK
 
 
 @app.route("/api/incident/all/<startDate>/<endDate>", methods=['GET'])
 def api_get_all_incidents(startDate, endDate):
     if request.method == 'GET':
-        return jsonify(get_all_incidents(startDate, endDate)), 200
+        return jsonify(get_all_incidents(startDate, endDate)), s.HTTP_201_CREATED
