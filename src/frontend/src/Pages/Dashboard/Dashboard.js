@@ -1,35 +1,39 @@
 import React, { useState } from 'react';
 import './Dashboard.css';
-import Grid from '@mui/material/Grid';
-import { Navbar} from 'react-bootstrap';
+import { Button } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 
 import { SafetyCard } from './Components/SafetyCard';
 import { BarChart } from './Components/Chart/BarChart';
 
 export const Dashboard = () => {
-    const [isChart, setIsChart] = useState(false);
     return(
         <div className='dashboard'>
-            <Navbar bg="dark" variant="dark" expand="lg" className='navbar full-width'>
-                <Navbar.Brand>Logo</Navbar.Brand>
-                <div className='title'>
-                    <Navbar.Brand>Safety Metrics</Navbar.Brand>
-                </div>
-                <Navbar.Brand>Social</Navbar.Brand>
-            </Navbar>
-            <div className='body center'>
-                <Grid item md={10} sm={12}>
-                    <div className='chart-container'>
+            <div className='body'>
+                <div className='graph-container center full-width'>
+                    <div style={{width: '57.5%'}}>
+                        <div className='full-width center'>Statistics Report</div>
                         <BarChart></BarChart>
                     </div>
-                    <div className='safety-container'>
-                        <SafetyCard title={'First'} image={'First'} content={'First'}></SafetyCard>
-                        <SafetyCard title={'Second'} image={'Second'} content={'Second'}></SafetyCard>
-                        <SafetyCard title={'Third'} image={'Third'} content={'Third'}></SafetyCard>
+                </div>
+                <div className='action-container center' style={{width: '57.5%'}}>
+                    <div className='axis-labels'>Axis</div>
+                    <div><Link to='/form'><Button>Report an Incident</Button></Link></div>
+                </div>
+                <div className='safety-container center full-width'>
+                    <div style={{width: '77.5%'}}>
+                        <div className='full-width center'>Hazard Information</div>
+                        <div className='safety-card-container full-width'>
+                            <SafetyCard title={'First'} image={'First'} content={'First'}></SafetyCard>
+                            <SafetyCard title={'Second'} image={'Second'} content={'Second'}></SafetyCard>
+                            <SafetyCard title={'Third'} image={'Third'} content={'Third'}></SafetyCard>
+                            <SafetyCard title={'Fourth'} image={'Fourth'} content={'Fourth'}></SafetyCard>
+                            <SafetyCard title={'Fifth'} image={'Fifth'} content={'Fifth'}></SafetyCard>
+                        </div>
                     </div>
-                </Grid>
+                </div>
             </div>
-            <div className='footer'>
+            <div className='footer full-width'>
                 <div className='information'>
                     <div>First</div>
                     <div>Second</div>
