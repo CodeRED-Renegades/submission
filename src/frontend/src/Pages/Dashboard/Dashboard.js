@@ -14,6 +14,7 @@ import { GetTimeIncidentAsync, GetGeolocationIncidentAsync, GetDepartmentInciden
 export const Dashboard = () => {
     const [startDate, setStartDate] = useState(new Date());
     const [endDate, setEndDate] = useState(new Date());
+    const [isTime, setIsTime] = useState(false)
 
     const [xAxis, setXaxis] = useState([]);
     const [yAxis, setYaxis] = useState([]);
@@ -40,9 +41,14 @@ export const Dashboard = () => {
         if(input == 3) {
             async function GetTimeIncident() {
                 await GetTimeIncidentAsync(null, null).then(resolution => {
-                    console.log(resolution.data);
-                    setXaxis(Object.keys(resolution.data));
-                    setYaxis(Object.values(resolution.data));
+                    let label = [];
+                    let data = [];
+                    for(let object of resolution.data) {
+                        label.push(`${object.month}, ${object.year}`)
+                        data.push(object.count);
+                    }
+                    setXaxis(Object.keys(label));
+                    setYaxis(Object.values(data));
                 });
             }
             GetTimeIncident();
@@ -80,13 +86,13 @@ export const Dashboard = () => {
                     <FormControl component='fieldset' className='full-width'>
                         <FormLabel component='legend' className='center'>Options:</FormLabel>
                         <RadioGroup row aria-label='Options' defaultValue='Geolocation' name='radio-button-group' className='center full-width'>
-                            <FormControlLabel value="Geolocation" control={<Radio />} label='Geolocation' onChange={() => handleRadio(2)}></FormControlLabel>
-                            <FormControlLabel value="Department" control={<Radio />} label='Department' onChange={() => handleRadio(1)}></FormControlLabel>
-                            <FormControlLabel value="Time" control={<Radio />} label='Time' onChange={() => handleRadio(3)}></FormControlLabel>
+                            <FormControlLabel value="Geolocation" control={<Radio />} label='Geolocation' onChange={() => {setIsTime(false); handleRadio(2)}}></FormControlLabel>
+                            <FormControlLabel value="Department" control={<Radio />} label='Department' onChange={() => {setIsTime(false); handleRadio(1)}}></FormControlLabel>
+                            <FormControlLabel value="Time" control={<Radio />} label='Time' onChange={() => {setIsTime(true); handleRadio(3)}}></FormControlLabel>
                             
                         </RadioGroup>
                     </FormControl>
-                    <div>
+                    <div style={{display: isTime ? 'block' : 'none'}}>
                         <MuiPickersUtilsProvider utils={DateFnsUtils}>
                             <KeyboardDatePicker id='startTime' clearable label={'Start Time: '} value={startDate} 
                             onChange={(date) => setStartDate(date)} format='MM/dd/yyyy' inputVariant='standard'></KeyboardDatePicker>
