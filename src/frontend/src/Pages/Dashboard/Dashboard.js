@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './Dashboard.css';
 import { Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
@@ -9,11 +9,26 @@ import { FormControl, FormLabel,  FormControlLabel, RadioGroup, Radio, Modal } f
 import { KeyboardDatePicker, MuiPickersUtilsProvider } from "@material-ui/pickers";
 import DateFnsUtils from '@date-io/date-fns';
 
+import { GetTimeIncidentAsync, GetGeolocationIncidentAsync, GetDepartmentIncidentAsync } from '../../API/GetInformation';
+
 export const Dashboard = () => {
     const [startDate, setStartDate] = useState(new Date());
     const [endDate, setEndDate] = useState(new Date());
     const [radioOption, setRadioOption] = useState(1);
-    console.log(radioOption);
+
+    const [graphInformation, setGraphInformation] = useState(null);
+
+    const description = {
+        Transport: 'Workers and equipment are required to be transported to and from well sites. Wells are often located in remote areas, and require traveling long distances to get to the sites. Highway vehicle crashes are the leading cause of oil and gas extraction worker fatalities. Roughly 4 of every 10 workers killed on the job in this industry are killed as a result of a highway vehicle incident (Census of Fatal Occupational Injuries).',
+        OilSpill: 'People who clean up the spill are more at risk. Problems could include skin and eye irritation, neurologic and breathing problems, and stress. Not much is known about the long-term effects of oil spills.',
+        ElectricalFire: 'Most electrical fires are caused by faulty electrical outlets and old, outdated appliances. Other fires are started by faults in appliance cords, receptacles and switches.',
+        PowerOutage: 'Even if you have an oil-based source of household heating, a power outage will still disrupt service and indoor temperatures will dip. A frozen or burst pipe can halt your access to running water (and could lead to some very expensive repairs).',
+        BrokenPipe: 'One of the biggest risks that a burst pipe poses is to your health. If you are unable to get rid of the stagnant water immediately, it can lead to the formation of mold, mildew, and humidity.'
+    }
+
+    useEffect(() => {
+
+    }, []);
 
     return(
         <div className='dashboard'>
@@ -49,11 +64,11 @@ export const Dashboard = () => {
                     <div style={{width: '77.5%'}}>
                         <div className='center full-width'>Hazard Information: </div>
                         <div className='safety-card-container full-width'>
-                            <SafetyCard title={'First'} image={'First'} content={'First'}></SafetyCard>
-                            <SafetyCard title={'Second'} image={'Second'} content={'Second'}></SafetyCard>
-                            <SafetyCard title={'Third'} image={'Third'} content={'Third'}></SafetyCard>
-                            <SafetyCard title={'Fourth'} image={'Fourth'} content={'Fourth'}></SafetyCard>
-                            <SafetyCard title={'Fifth'} image={'Fifth'} content={'Fifth'}></SafetyCard>
+                            <SafetyCard title={'Transportation'} image={''} content={description.Transport}></SafetyCard>
+                            <SafetyCard title={'Oil Spill'} image={''} content={description.OilSpill}></SafetyCard>
+                            <SafetyCard title={'Electrical Fires'} image={''} content={description.ElectricalFire}></SafetyCard>
+                            <SafetyCard title={'Power Outage'} image={''} content={description.PowerOutage}></SafetyCard>
+                            <SafetyCard title={'Broken Pipes'} image={''} content={description.BrokenPipe}></SafetyCard>
                         </div>
                     </div>
                 </div>

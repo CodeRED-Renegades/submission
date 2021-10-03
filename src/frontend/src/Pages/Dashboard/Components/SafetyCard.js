@@ -10,11 +10,11 @@ export const SafetyCard = (props) => {
             <div onClick={() => setIsExpanded(prev => !prev)} className='title'>
                 <FontAwesomeIcon icon={isExpanded ? faMinus : faPlus} />
                 <div className='center full-width'>
-                    <div>{props.title}</div>
+                    <div><b>{props.title}</b></div>
                 </div>
             </div>
             <div style={{display: isExpanded ? 'flex' : 'none'}} className='content'>
-                <div>{props.image}</div>
+                <div><img src={props.image} alt={props.title} /></div>
                 <div>{props.content}</div>
             </div>
         </div>

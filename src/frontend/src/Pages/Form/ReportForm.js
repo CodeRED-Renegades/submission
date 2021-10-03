@@ -8,6 +8,8 @@ import { KeyboardDatePicker, MuiPickersUtilsProvider } from "@material-ui/picker
 import { Button } from 'react-bootstrap';
 import DateFnsUtils from '@date-io/date-fns';
 
+import { PostIncident } from '../../API/PostInformation';
+
 export const ReportForm = () => {
     const [selectedDate, setSelectedDate] = useState(null);
     const [geolocation, setGeolocation] = useState(null);
