@@ -13,8 +13,8 @@ import DateFnsUtils from '@date-io/date-fns';
 import { GetTimeIncidentAsync, GetGeolocationIncidentAsync, GetDepartmentIncidentAsync } from '../../API/GetInformation';
 
 const parseDate = (date) => {
-    const stringDate = moment(date).format('yyyy-mm-Do'.substring(0,9) + ' 00:00:00');
-    console.log(stringDate);
+    const dayString = String(date.getDate()).padStart(2,'0');
+    const stringDate = moment(date).format('yyyy-mm'.substring(0,7) + '-' + dayString + ' 00:00:00');
     return stringDate;
 }
 
@@ -22,7 +22,6 @@ export const Dashboard = () => {
     const [startDate, setStartDate] = useState(new Date());
     const [endDate, setEndDate] = useState(new Date());
     const [isTime, setIsTime] = useState(false)
-    console.log(parseDate(startDate));
 
     const [xAxis, setXaxis] = useState([]);
     const [yAxis, setYaxis] = useState([]);
@@ -56,6 +55,8 @@ export const Dashboard = () => {
         if(input == 3) {
             async function GetTimeIncident() {
                 await GetTimeIncidentAsync(null, null).then(resolution => {
+                    console.log(startDate);
+                    console.log(endDate);
                     let label = [];
                     let data = [];
                     for(let object of resolution.data) {
