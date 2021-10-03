@@ -22,10 +22,10 @@ def serve(path):
 def incidents():
     if request.method == 'POST':
         body = request.json
-        return jsonify(create_incident(body)), s.HTTP_200_OK
+        return jsonify(create_incident(body)), s.HTTP_201_CREATED
 
 
 @app.route("/api/incident/all/<startDate>/<endDate>", methods=['GET'])
 def api_get_all_incidents(startDate, endDate):
     if request.method == 'GET':
-        return jsonify(get_all_incidents(startDate, endDate)), s.HTTP_201_CREATED
+        return jsonify(get_all_incidents(startDate, endDate)), s.HTTP_200_OK

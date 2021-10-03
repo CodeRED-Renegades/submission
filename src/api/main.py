@@ -5,23 +5,26 @@ source_path = os.path.dirname(os.path.dirname(__file__))
 BASE_DIR = os.path.dirname(source_path)
 db_path = os.path.join(source_path, "database", "sms.db")
 rel_db_path = os.path.relpath(db_path, BASE_DIR)
-db = sqlite3.connect(os.path.relpath(db_path, BASE_DIR))
 
+
+
+def get_all_incidents(startDate, endDate):
     db_path = os.path.join(source_path, "database", "sms.db")
-    db = sqlite3.connect(os.path.relpath(db_path, BASE_DIR))
+    rel_db_path = os.path.relpath(db_path, BASE_DIR)
+    db = sqlite3.connect(rel_db_path)
     cur = db.cursor()
     output = [] #list of dictionaries
     date = dict()
 
+    if endDate.endswith('>'):
+        endDate = endDate[:-1]
+
     if startDate == "null"  and endDate.startswith("null"):
-    if startDate is None:
-      #query all
-      
-        print("this is running \n")
+
         for row in cur.execute("SELECT Time FROM TEST"):
-            #print(row)
+
             y, m = ExctractDate(row)
-            print(y,m,"\n")
+
             key = (m, y)
             if key in date:
                 date[key] += 1
@@ -33,9 +36,9 @@ db = sqlite3.connect(os.path.relpath(db_path, BASE_DIR))
           
 
     elif endDate.startswith("null"):
-        print(startDate)
+
         commandStirng = f"SELECT Time FROM TEST WHERE Time > '{startDate}'"
-        print(commandStirng)
+
         for row in cur.execute(commandStirng):
             y, m = ExctractDate(row)
             print(y,m,"\n")
@@ -53,7 +56,7 @@ db = sqlite3.connect(os.path.relpath(db_path, BASE_DIR))
 
         for row in cur.execute(commandStirng):
             y, m = ExctractDate(row)
-            print(y,m,"\n")
+
             key = (m, y)
             if key in date:
                 date[key] += 1
@@ -64,14 +67,11 @@ db = sqlite3.connect(os.path.relpath(db_path, BASE_DIR))
             output.append({"month": key[0], "year": key[1], "count": date[key]})
 
     else:
-        #query by date
-        #select statement, convert each observation into dictionaries by month in a range
 
-        #startDate = endDate = yyyy-mm-dd 00:00:00
-        
         for row in cur.execute(f"SELECT Time FROM TEST WHERE Time BETWEEN '{startDate}' AND '{endDate}' "):
+            print(row)
             y, m = ExctractDate(row)
-            print(y,m,"\n")
+
             key = (m, y)
             if key in date:
                 date[key] += 1
@@ -80,22 +80,6 @@ db = sqlite3.connect(os.path.relpath(db_path, BASE_DIR))
 
         for key in date:
             output.append({"month": key[0], "year": key[1], "count": date[key]})
-
-
-
-    #for row in cur:
-    #    print(row)
-
-    #    y, m = ExctractDate(row)
-    #    print(y,m,"\n")
-    #    key = (m, y)
-    #    if key in date:
-    #        date[key] += 1
-    #    else:
-    #        date[key] = 1
-
-    #for key in date:
-    #    output.append({"month": key[0], "year": key[1], "count": date[key]})
 
     db.close()
     return output
@@ -136,12 +120,10 @@ def ExctractDate(Time):
 
     return newTime[0], newMonth
 
-      pass
-   else:
-      #query by date
-      #select statement, convert each observation into dictionaries by month in a range
-      pass
-   return {"message":"hello from database"}
+
+
+
+
 
 def create_incident(incident):
    query = """insert into TEST (
@@ -169,4 +151,4 @@ def create_incident(incident):
    cur.execute(query)
    db.commit()
    cur.close()
-   return { "message": "incident created" }   return {"message":"hello from database"}
+   return { "message": "incident created" }

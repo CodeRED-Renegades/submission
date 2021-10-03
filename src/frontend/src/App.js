@@ -19,9 +19,9 @@ function App() {
   const [message, setMessage] = useState('No api. :-(');
 
   //getAllEndPoint fetch
-    fetch(getAllEndpoint("2020-01-03 00:00:01", "2020-12-04 00:00:01" ), {
+    fetch(getAllEndpoint(null, null), {
     method: 'GET',
-    headers: {
+        headers: {
         "accept": "application/json"
     }
   })
